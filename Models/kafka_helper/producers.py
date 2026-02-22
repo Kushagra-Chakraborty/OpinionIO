@@ -1,12 +1,4 @@
-from General.kafkaContracts import *
-from General.kafkaHelper import kafka_app
+from Models.kafka_helper.tinybert_producer import submit_result_tiny_bert
+from Models.kafka_helper.xgboost_producer import submit_result_xgboost
 
-
-@kafka_app.produces(topic="COMPLETED_INFLUENTIAL_TASK")
-async def submit_result_tiny_bert(results: CompletedInfluentialTaskContract) -> CompletedInfluentialTaskContract:
-    return results
-
-
-@kafka_app.produces(topic="COMPLETED_BULK_TASK")
-async def submit_result_tiny_bert(results: CompletedBulkTaskContract) -> CompletedBulkTaskContract:
-    return results
+__all__ = ["submit_result_tiny_bert", "submit_result_xgboost"]
