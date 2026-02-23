@@ -8,6 +8,9 @@ kafka_brokers = {
         "url": settings.kafka_broker_url,
         "description": f"{settings.environment} Kafka broker",
         "port": settings.kafka_broker_port,
+    }, "localhost": {
+        "url": "127.0.0.1",
+        "port": 9092,
     }
 }
 

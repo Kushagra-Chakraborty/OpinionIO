@@ -6,3 +6,6 @@ docker-compose.yml
 **/__pycache__
 .env
 *.http
+testing_consumer.py
+Procfile
+*.bat
