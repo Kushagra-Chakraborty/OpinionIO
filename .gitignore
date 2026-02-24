@@ -10,3 +10,4 @@ testing_consumer.py
 Procfile
 *.bat
 testing.py
+.env.example

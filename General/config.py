@@ -20,6 +20,10 @@ class Settings(BaseSettings):
     tinybert_worker_port: int
     xgboost_worker_port: int
 
+    KAFKA_CONTAINER_NAME: str
+    EXTERNAL_API_URL: str
+    INTERNAL_API_URL: str
+
     # Pydantic Config: Tells it to look for the .env file in the root directory
     model_config = SettingsConfigDict(
         env_file=".env",

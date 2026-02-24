@@ -1,10 +1,9 @@
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker, declarative_base
 from sqlalchemy import Column, Integer, String, DateTime, func, Boolean, Float, CheckConstraint
+from General.config import settings
 
-DATABASE_URL = "postgresql+asyncpg://postgres:root@localhost:5433/major"
-
-engine = create_async_engine(DATABASE_URL, echo=True)
+engine = create_async_engine(settings.database_url, echo=True)
 AsyncSessionLocal = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 Base = declarative_base()
 
@@ -60,7 +59,7 @@ class InfluentialTrainingData(Base):
 
     tweet = Column(String)
 
-    sentiment = Column(Float)
+    sentiment = Column(Integer)
 
     __table_args__ = (
         CheckConstraint('sentiment IN (0, 1)', name='check_sentiment_bool'),
@@ -74,12 +73,11 @@ class BulkTrainingData(Base):
 
     tweet = Column(String)
 
-    sentiment = Column(Float)
+    sentiment = Column(Integer)
 
     __table_args__ = (
         CheckConstraint('sentiment IN (0, 1)', name='check_sentiment_bool'),
     )
-
 
 
 async def get_db():
