@@ -28,3 +28,35 @@ async def set_status(task_id: int, status: str, db: AsyncSession = Depends(get_d
     except Exception as e:
         await db.rollback()
         raise HTTPException(500, f"Failed to set status: {str(e)}")
+
+
+@status_router.post("/flag/bulk/{task_id}/{flag}")
+async def set_bulk_flag(task_id: int, flag: bool, db: AsyncSession = Depends(get_db)):
+    try:
+        task = await db.get(TaskStatus, task_id)
+
+        task.bulk_ready = flag
+
+        await db.commit()
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        await db.rollback()
+        raise HTTPException(500, f"Failed to set Bulk status: {str(e)}")
+
+
+@status_router.post("/flag/influential/{task_id}/{flag}")
+async def set_influential_flag(task_id: int, flag: bool, db: AsyncSession = Depends(get_db)):
+    try:
+        task = await db.get(TaskStatus, task_id)
+
+        task.influential_ready = flag
+
+        await db.commit()
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        await db.rollback()
+        raise HTTPException(500, f"Failed to set influential status: {str(e)}")

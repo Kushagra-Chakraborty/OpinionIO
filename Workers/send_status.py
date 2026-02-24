@@ -1,6 +1,8 @@
 import httpx
-import asyncio
 from General.config import settings
+from General.logger import Logger
+
+logger = Logger(name="StatusUpdater")
 
 
 async def send_status_to_db(id: int, status: str):
@@ -10,10 +12,21 @@ async def send_status_to_db(id: int, status: str):
     # Send status as query parameter
     params = {'status': status}
 
-    # Send the request
-    async with httpx.AsyncClient() as client:
-        response = await client.post(url, params=params)
+    logger.debug(f"[HTTP] POST {url} with params: {params}")
 
-    # Raise an error if the request failed
-    response.raise_for_status()
-    print("Successfully updated status:", response.json())
+    try:
+        async with httpx.AsyncClient(timeout=10.0) as client:
+            response = await client.post(url, params=params)
+
+        response.raise_for_status()
+        logger.info(f"[STATUS] Task {id} -> '{status}' (HTTP {response.status_code}) OK")
+        
+    except httpx.ConnectError as e:
+        logger.error(f"[HTTP] Connection failed to {url}: {e}")
+        raise
+    except httpx.HTTPStatusError as e:
+        logger.error(f"[HTTP] Status update failed - HTTP {e.response.status_code}: {e.response.text}")
+        raise
+    except Exception as e:
+        logger.error(f"[HTTP] Unexpected error updating status: {e}")
+        raise

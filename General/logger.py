@@ -28,13 +28,13 @@ class Logger:
             self.logger.addHandler(self.console_handler)
 
     def info(self, msg: str):
-        self.logger.info(f"🟢 INFO: {msg}")
+        self.logger.info(msg)
 
     def error(self, msg: str):
-        self.logger.error(f"🔴 ERROR: {msg}")
+        self.logger.error(msg)
 
     def debug(self, msg: str):
-        self.logger.debug(f"🔵 DEBUG: {msg}")
+        self.logger.debug(msg)
 
     def warning(self, msg: str):
-        self.logger.warning(f"🟡 WARNING: {msg}")
+        self.logger.warning(msg)
