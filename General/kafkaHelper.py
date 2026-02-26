@@ -20,8 +20,8 @@ kafka_brokers = {
         "port": settings.kafka_broker_port,
     }, 
     "localhost": {
-        "url": "localhost",
-        "port": 9092,
+        "url": settings.kafka_broker_url,
+        "port": settings.kafka_broker_port,
     }
 }
 

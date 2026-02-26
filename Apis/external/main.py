@@ -6,6 +6,8 @@ from General.config import settings  # <-- Import settings
 from General.database import init_db  # <-- Make sure this is imported!
 from .routes.new import *
 from .routes.status import *
+from .kafka_helper import producers
+from .kafka_helper import consumers
 
 
 logger = Logger()
