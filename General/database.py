@@ -13,7 +13,7 @@ Base = declarative_base()
 class TaskStatus(Base):
     __tablename__ = "tasks_status"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(String, primary_key=True, index=True)
     status = Column(String, default="queued")
     influential_ready = Column(Boolean, default=False)
     bulk_ready = Column(Boolean, default=False)
@@ -26,7 +26,7 @@ class TaskStatus(Base):
 class InfluentialResults(Base):
     __tablename__ = "influential_results"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(String, primary_key=True, index=True)
     location = Column(String)
 
     mode_sentiment = Column(Float)
@@ -41,7 +41,7 @@ class InfluentialResults(Base):
 class BulkResults(Base):
     __tablename__ = "bulk_results"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(String, primary_key=True, index=True)
     location = Column(String)
 
     mode_sentiment = Column(Float)

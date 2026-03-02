@@ -10,7 +10,7 @@ logger = Logger(name="Collector.Consumer")
 
 @kafka_app.consumes(topic="NEW_TASK")
 async def next_task(msg: TaskContract) -> TaskContract:
-    logger.info(f"[CONSUME] Received NEW_TASK - Task ID: {msg.id}, Topic: {msg.topic}, Region: {msg.region}")
+    logger.info(f"[CONSUME] Received NEW_TASK - Task ID: {msg.id}, Topic: {msg.topic}")
     
     logger.debug(f"Sending status update: 'Collecting Meta Data'")
     await send_status_to_db(msg.id, "Collecting Meta Data")

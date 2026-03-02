@@ -5,7 +5,7 @@ from General.logger import Logger
 logger = Logger(name="StatusUpdater")
 
 
-async def send_status_to_db(id: int, status: str):
+async def send_status_to_db(id: str, status: str):
     # URL with task_id as path parameter
     url = f"{settings.INTERNAL_API_URL}/api/internal/status/{id}"
 

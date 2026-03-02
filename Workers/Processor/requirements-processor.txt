@@ -3,3 +3,4 @@ fastkafka~=0.8.0
 pydantic~=2.9.0
 pydantic-settings~=2.5.2
 httpx~=0.28.1
+uuid

@@ -17,7 +17,7 @@ async def lifespan(app: FastAPI):
     async with kafka_app.fastapi_lifespan(kafka_broker_name=settings.environment)(app):
         logger.info("Producer Created at External")
 
-        await init_db()
+        #await init_db()
         logger.info("DB Connected")
 
         yield

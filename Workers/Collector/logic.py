@@ -74,7 +74,7 @@ def _to_tweet(raw_tweet: dict, users: dict[str, dict]) -> Tweet | None:
 
 
 def collect_metadata(task: TaskContract) -> MetaDataContract:
-    payload = fetch_recent_tweets(topic=task.topic, region=task.region)
+    payload = fetch_recent_tweets(topic=task.topic)
     users = {
         str(user.get("id")): user
         for user in payload.get("includes", {}).get("users", [])

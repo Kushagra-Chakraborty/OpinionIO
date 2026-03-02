@@ -4,3 +4,4 @@ pydantic~=2.9.0
 pydantic-settings~=2.5.2
 httpx~=0.28.1
 requests~=2.32.5
+uuid

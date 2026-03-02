@@ -9,7 +9,7 @@ status_router = APIRouter(
 
 
 @status_router.post('/{task_id}')
-async def set_status(task_id: int, status: str, db: AsyncSession = Depends(get_db)):
+async def set_status(task_id: str, status: str, db: AsyncSession = Depends(get_db)):
     try:
         # Use async db.get() for SQLAlchemy async sessions
         task = await db.get(TaskStatus, task_id)
@@ -31,7 +31,7 @@ async def set_status(task_id: int, status: str, db: AsyncSession = Depends(get_d
 
 
 @status_router.post("/flag/bulk/{task_id}/{flag}")
-async def set_bulk_flag(task_id: int, flag: bool, db: AsyncSession = Depends(get_db)):
+async def set_bulk_flag(task_id: str, flag: bool, db: AsyncSession = Depends(get_db)):
     try:
         task = await db.get(TaskStatus, task_id)
 
@@ -47,7 +47,7 @@ async def set_bulk_flag(task_id: int, flag: bool, db: AsyncSession = Depends(get
 
 
 @status_router.post("/flag/influential/{task_id}/{flag}")
-async def set_influential_flag(task_id: int, flag: bool, db: AsyncSession = Depends(get_db)):
+async def set_influential_flag(task_id: str, flag: bool, db: AsyncSession = Depends(get_db)):
     try:
         task = await db.get(TaskStatus, task_id)
 

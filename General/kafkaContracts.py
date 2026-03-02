@@ -1,10 +1,14 @@
-from pydantic import BaseModel
+import uuid
+from pydantic import BaseModel, Field
+
+
+class RequestContract(BaseModel):
+    topic: str
 
 
 class Task(BaseModel):
-    id: int
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     topic: str
-    region: str
 
 
 class TaskContract(Task):
@@ -12,7 +16,7 @@ class TaskContract(Task):
 
 
 class BaseContract(BaseModel):
-    id: int
+    id: str
 
 
 class UserMetrics(BaseModel):
