@@ -84,3 +84,10 @@ class Output(BaseContract):
     most_positive: float
     most_negative: float
     modal_sentiment: float
+
+
+class ResearchMetrics(BaseContract):
+    process: str
+    start_time: int
+    end_time: int
+    total_time: int

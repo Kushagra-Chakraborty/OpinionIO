@@ -565,7 +565,8 @@ docker compose down
 
 ## 👥 Contributors
 
-[Add contributors here]
+1. Divyansh Manhas
+2. Kushi add you name
 
 ---
 
