@@ -16,7 +16,6 @@ COPY Metrics/__init__.py ./Metrics/
 COPY Metrics/main.py ./Metrics/
 COPY Metrics/logic.py ./Metrics/
 COPY Metrics/consumer.py ./Metrics/
-COPY Metrics/producer.py ./Metrics/
 
 # Prepare the logs directory for CSV storage
 RUN mkdir -p /app/logs

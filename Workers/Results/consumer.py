@@ -12,7 +12,7 @@ logger = Logger(name="Internal.ResultConsumer")
 async def consume_influential_result(msg: CompletedInfluentialTaskContract) -> CompletedInfluentialTaskContract:
     logger.info(f"[CONSUME] Received COMPLETED_INFLUENTIAL_TASK - Task ID: {msg.id}, Results: {len(msg.y)}")
 
-    async with track_metrics(msg.id, "result collecting"):
+    async with track_metrics(msg.id, "influential result collecting"):
         await send_result_influential(msg)
         logger.info(f"[SAVE] Saved influential results for task {msg.id}")
 
@@ -26,7 +26,7 @@ async def consume_influential_result(msg: CompletedInfluentialTaskContract) -> C
 async def consume_bulk_result(msg: CompletedBulkTaskContract) -> CompletedBulkTaskContract:
     logger.info(f"[CONSUME] Received COMPLETED_BULK_TASK - Task ID: {msg.id}, Results: {len(msg.y)}")
 
-    async with track_metrics(msg.id, "result collecting"):
+    async with track_metrics(msg.id, "bulk result collecting"):
         await send_result_bulk(msg)
         logger.info(f"[SAVE] Saved bulk results for task {msg.id}")
 

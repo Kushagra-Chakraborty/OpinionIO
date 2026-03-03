@@ -1,7 +1,7 @@
-import asyncio
-import contextlib
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from General.kafkaHelper import kafka_app
+from General.config import settings
 from General.logger import Logger
 from Metrics import consumer as _consumer  # noqa: F401
 from Metrics.logic import init_csv, read_all_metrics, clear_metrics
@@ -11,21 +11,18 @@ logger = Logger(name="Metrics.Main")
 
 # ── FastKafka lifecycle managed inside FastAPI lifespan ──────────────────────
 
-@contextlib.asynccontextmanager
+@asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup
-    logger.info("[STARTUP] Initialising CSV file...")
-    await init_csv()
+    async with kafka_app.fastapi_lifespan(kafka_broker_name=settings.environment)(app):
+        logger.info("[STARTUP] Initialising CSV file...")
+        await init_csv()
 
-    logger.info("[STARTUP] Starting FastKafka consumer...")
-    await kafka_app.start()
+        logger.info("[STARTUP] FastKafka consumer started")
 
-    yield
+        yield
 
-    # Shutdown
-    logger.info("[SHUTDOWN] Stopping FastKafka consumer...")
-    await kafka_app.stop()
-
+        logger.info("[SHUTDOWN] FastKafka consumer stopped")
+ 
 
 app = FastAPI(
     title="Metrics Service",
