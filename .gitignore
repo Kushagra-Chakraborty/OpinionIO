@@ -1,6 +1,5 @@
 ./.idea/*
 .idea
-docker-compose.yml
 .gitignore
 .venv
 **/__pycache__
@@ -11,3 +10,5 @@ Procfile
 *.bat
 testing.py
 .env.example
+
+experiments
