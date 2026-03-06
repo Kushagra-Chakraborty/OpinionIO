@@ -43,19 +43,18 @@ def _get_bearer_token() -> str:
     return token.strip() if token else ""
 
 
-def _build_query(topic: str, region: str) -> str:
+def _build_query(topic: str) -> str:
     topic_part = topic.strip() if topic else "ai"
-    region_part = f" ({region.strip()})" if region else ""
-    return f"({topic_part}{region_part}) -is:retweet lang:en"
+    return f"({topic_part}) -is:retweet lang:en"
 
 
-def fetch_recent_tweets(topic: str, region: str, max_results: int = DEFAULT_MAX_RESULTS) -> dict:
+def fetch_recent_tweets(topic: str, max_results: int = DEFAULT_MAX_RESULTS) -> dict:
     token = _get_bearer_token()
     if not token:
         return _sample_payload(max_results=max_results)
 
     params = {
-        "query": _build_query(topic=topic, region=region),
+        "query": _build_query(topic=topic),
         "max_results": max(10, min(max_results, 100)),
         "tweet.fields": "created_at,author_id,public_metrics,lang",
         "expansions": "author_id",

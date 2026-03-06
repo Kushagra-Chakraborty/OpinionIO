@@ -1,0 +1,29 @@
+FROM python:3.12-slim
+
+WORKDIR /app
+
+# Copy requirements first (for better caching)
+COPY Metrics/requirements-metrics.txt .
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements-metrics.txt
+
+# Copy the shared General module
+COPY General/ ./General/
+
+# Copy the Metrics service
+COPY Metrics/__init__.py ./Metrics/
+COPY Metrics/main.py ./Metrics/
+COPY Metrics/logic.py ./Metrics/
+COPY Metrics/consumer.py ./Metrics/
+
+# Prepare the logs directory for CSV storage
+RUN mkdir -p /app/logs
+
+# Set Python path so imports work
+ENV PYTHONPATH=/app
+
+# Expose the FastAPI port
+EXPOSE 8004
+
+CMD ["uvicorn", "Metrics.main:app", "--host", "0.0.0.0", "--port", "8004"]

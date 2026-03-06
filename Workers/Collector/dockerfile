@@ -19,4 +19,4 @@ COPY Workers/Collector/ ./Workers/Collector/
 # Set Python path so imports work
 ENV PYTHONPATH=/app
 
-CMD ["fastkafka", "run", "--num-workers", "1", "Workers.Collector.main:kafka_app"]
+CMD ["fastkafka", "run", "--num-workers", "2", "Workers.Collector.main:kafka_app"]

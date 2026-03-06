@@ -22,4 +22,4 @@ ENV PYTHONPATH=/app
 # Model artifacts will be mounted as a volume at /app/Models/models
 VOLUME ["/app/Models/models"]
 
-CMD ["fastkafka", "run", "--num-workers", "1", "Models.XGBoost.main:kafka_app"]
+CMD ["fastkafka", "run", "--num-workers", "2", "Models.XGBoost.main:kafka_app"]

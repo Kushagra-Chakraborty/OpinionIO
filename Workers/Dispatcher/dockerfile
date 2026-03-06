@@ -19,4 +19,4 @@ COPY Workers/Dispatcher/ ./Workers/Dispatcher/
 # Set Python path so imports work
 ENV PYTHONPATH=/app
 
-CMD ["fastkafka", "run", "--num-workers", "1", "Workers.Dispatcher.main:kafka_app"]
+CMD ["fastkafka", "run", "--num-workers", "2", "Workers.Dispatcher.main:kafka_app"]

@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends
 from General.database import *
 from ..kafka_helper.producers import *
 from General.kafkaContracts import *
+from General.metrics import track_metrics
 
 new_router = APIRouter(
     prefix="/api/external/new"
@@ -9,20 +10,22 @@ new_router = APIRouter(
 
 
 @new_router.post("/")
-async def new(task: Task, db: AsyncSession = Depends(get_db)):
+async def new(request: RequestContract, db: AsyncSession = Depends(get_db)):
     try:
-        contract = TaskContract(**task.model_dump())
-        await new_task(contract)
+        contract = TaskContract(topic=request.topic)
+
+        async with track_metrics(contract.id, "queued"):
+            await new_task(contract)
 
         status = TaskStatus(
-            id=task.id,
+            id=contract.id,
             status="queued",
         )
 
         db.add(status)
         await db.commit()
 
-        return {"status": "queued", "id": task.id}
+        return {"status": "queued", "id": contract.id}
 
     except Exception as e:
         return {"status": "Failed", "message": e}
